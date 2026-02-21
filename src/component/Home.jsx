@@ -1,8 +1,34 @@
 import PageHeading from "./PageHeading";
 import ProductListing from "./ProductListing";
-import products from "./data/products";
+import { useState, useEffect } from "react";
+import apiClient from "../api/apiClient";
 
 export default function Home() {
+
+
+    const [products, setProducts] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        fetchProducts();
+    }, []);
+
+    const fetchProducts = async () => {
+        try {
+            setLoading(true);
+            const response = await apiClient.get("/products");
+            setProducts(response.data);
+        } catch (err) {
+            setError(err.message || "Failed to fetch products");
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    if (loading) return <div className="text-center py-10">Loading products...</div>;
+    if (error) return <div className="text-center py-10 text-red-500">Error: {error}</div>;
+
     return (
         <footer className="bg-gray-800 text-white p-4 mt-10">
             <div className="container mx-auto text-center">
