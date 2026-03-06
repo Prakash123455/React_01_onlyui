@@ -62,7 +62,7 @@ export default function ProductListing({ products }) {
                     <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-red-600 bg-clip-text text-transparent mb-3">
                         Our Sticker Collection
                     </h2>
-                    <p className="text-gray-600 text-lg">
+                    <p className="text-gray-600 dark:text-gray-300 text-lg">
                         Discover {filterAndsortProducts.length} unique designs to express yourself
                     </p>
                 </div>
@@ -77,8 +77,8 @@ export default function ProductListing({ products }) {
                         ) : (
                             <div className="col-span-full py-16 text-center">
                                 <div className="text-6xl mb-4">📦</div>
-                                <p className="text-xl text-gray-500 font-semibold">No products available</p>
-                                <p className="text-gray-400 mt-2">Check back soon for new stickers!</p>
+                                <p className="text-xl text-gray-500 dark:text-gray-400 font-semibold">No products available</p>
+                                <p className="text-gray-400 dark:text-gray-500 mt-2">Check back soon for new stickers!</p>
                             </div>
                         )
                     }

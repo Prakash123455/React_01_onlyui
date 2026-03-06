@@ -1,25 +1,65 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faShoppingBasket, faTags } from '@fortawesome/free-solid-svg-icons'; 
+import {
+    faShoppingBasket,
+    faTags,
+    faSun,
+    faMoon,
+} from "@fortawesome/free-solid-svg-icons";
+import { useState, useEffect } from "react";
+
 
 
 const Header = () => {
+
+
+    const [theme, setTheme] = useState(() => {
+        return localStorage.getItem("theme") === "dark" ? "dark" : "light";
+    });
+
+    useEffect(() => {
+        if (theme === "dark") {
+            document.documentElement.classList.add("dark");
+        } else {
+            document.documentElement.classList.remove("dark");
+        }
+    }, [theme]);
+
+    const toggleTheme = () => {
+        setTheme((prevTheme) => {
+            const newTheme = prevTheme === "light" ? "dark" : "light";
+            localStorage.setItem("theme", newTheme);
+            return newTheme;
+        });
+    };
+
+
     return (
-        <header className="bg-gradient-to-r from-gray-900 via-purple-900 to-gray-900 text-white p-4 shadow-2xl sticky top-0 z-50">
+        <header className="bg-gradient-to-r from-gray-900 via-purple-900 to-gray-900 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 text-white p-4 shadow-2xl sticky top-0 z-50">
             <div className="container mx-auto flex justify-between items-center">
                 <a href="/" className="text-3xl font-bold hover:text-purple-400 transition-all duration-300 group">
-                <FontAwesomeIcon icon={faTags} className="fa-icon group-hover:scale-110 group-hover:rotate-12 transition-transform duration-300"/>
-                <span className="ml-2 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">EasyStickers</span></a>
+                    <FontAwesomeIcon icon={faTags} className="fa-icon group-hover:scale-110 group-hover:rotate-12 transition-transform duration-300" />
+                    <span className="ml-2 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">EasyStickers</span></a>
                 <nav>
                     <ul className="flex space-x-6">
-                        <li><a href="/" className="hover:text-purple-400 transition-all duration-300 hover:scale-110 hover:shadow-lg px-3 py-2 rounded-lg hover:bg-white/10">Home</a></li>
-                        <li><a href="/about" className="hover:text-purple-400 transition-all duration-300 hover:scale-110 hover:shadow-lg px-3 py-2 rounded-lg hover:bg-white/10">About</a></li>
-                        <li><a href="/contact" className="hover:text-purple-400 transition-all duration-300 hover:scale-110 hover:shadow-lg px-3 py-2 rounded-lg hover:bg-white/10">Contact</a></li>
-                        <li><a href="/login" className="hover:text-purple-400 transition-all duration-300 hover:scale-110 hover:shadow-lg px-3 py-2 rounded-lg hover:bg-white/10">Login</a></li>
+                        <button
+                            className="flex items-center justify-center mx-3 w-8 h-8 rounded-full border border-primary dark:border-purple-400 bg-white dark:bg-slate-800 transition duration-300 hover:bg-gray-200 dark:hover:bg-slate-700"
+                            aria-label="Toggle theme"
+                            onClick={toggleTheme}
+                        >
+                            <FontAwesomeIcon
+                                icon={theme === "dark" ? faMoon : faSun}
+                                className="w-4 h-4 text-purple-600 dark:text-purple-400"
+                            />
+                        </button>
+                        <li><a href="/" className="hover:text-purple-400 transition-all duration-300 hover:scale-110 hover:shadow-lg px-3 py-2 rounded-lg hover:bg-white/10 dark:hover:bg-slate-700/50">Home</a></li>
+                        <li><a href="/about" className="hover:text-purple-400 transition-all duration-300 hover:scale-110 hover:shadow-lg px-3 py-2 rounded-lg hover:bg-white/10 dark:hover:bg-slate-700/50">About</a></li>
+                        <li><a href="/contact" className="hover:text-purple-400 transition-all duration-300 hover:scale-110 hover:shadow-lg px-3 py-2 rounded-lg hover:bg-white/10 dark:hover:bg-slate-700/50">Contact</a></li>
+                        <li><a href="/login" className="hover:text-purple-400 transition-all duration-300 hover:scale-110 hover:shadow-lg px-3 py-2 rounded-lg hover:bg-white/10 dark:hover:bg-slate-700/50">Login</a></li>
                         <li><a href="/cart" className="hover:text-pink-400 transition-all duration-300 hover:scale-110 px-3 py-2 rounded-lg hover:bg-gradient-to-r hover:from-purple-600 hover:to-pink-600 font-semibold">
-                        <FontAwesomeIcon icon={faShoppingBasket} className="fa-icon mr-2"/> Cart
-                        </a></li> 
+                            <FontAwesomeIcon icon={faShoppingBasket} className="fa-icon mr-2" /> Cart
+                        </a></li>
                     </ul>
-                    </nav>
+                </nav>
             </div>
         </header>
     );
