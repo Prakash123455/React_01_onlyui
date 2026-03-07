@@ -6,7 +6,7 @@ export default function ProductCard({ product }) {
             {/* Image Container */}
             <div className="relative h-56 overflow-hidden bg-gray-200 dark:bg-slate-700">
                 <img 
-                    src={product.imageUrl} 
+                    src={product.imageUrl}
                     alt={product.name} 
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 
                 />
