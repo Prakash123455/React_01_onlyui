@@ -9,6 +9,7 @@ import Cart from "./component/Cart.jsx";
 import Home from "./component/Home.jsx";
 import ErrorPage from "./component/ErrorPage.jsx";
 import { productsLoader } from "./component/Home.jsx";
+import { CartProvider } from "./component/store/cart-context.jsx";
 
 import {
   createBrowserRouter,
@@ -34,6 +35,8 @@ const appRouter = createBrowserRouter(routeDefinitions);
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <RouterProvider router={appRouter} />
+    <CartProvider>
+      <RouterProvider router={appRouter} />
+    </CartProvider>
   </StrictMode>
 );

@@ -1,12 +1,25 @@
 import Price from "./Price";
+import { useCart } from "./store/cart-context";
 
 export default function ProductCard({ product }) {
+    const { addToCart } = useCart();
+
+    const handleAddToCart = () => {
+        addToCart({
+            id: product.id,
+            name: product.name,
+            description: product.description,
+            price: product.price,
+            image: `../${product.imageUrl}`,
+        });
+    };
+
     return (
         <div className="group relative bg-white dark:bg-slate-800 rounded-xl shadow-lg dark:shadow-slate-700/50 overflow-hidden transition-all duration-300 hover:shadow-2xl dark:hover:shadow-slate-700 hover:-translate-y-1">
             {/* Image Container */}
             <div className="relative h-56 overflow-hidden bg-gray-200 dark:bg-slate-700">
                 <img 
-                    src={product.imageUrl}
+                    src={`../${product.imageUrl}`}
                     alt={product.name} 
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 
                 />
@@ -36,7 +49,10 @@ export default function ProductCard({ product }) {
                         <Price currency="$" amount={product.price} />
                         <span className="text-xs text-gray-400 dark:text-gray-500">each</span>
                     </div>
-                    <button className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-4 py-2 rounded-lg font-semibold text-sm transition-all duration-300 hover:shadow-lg active:scale-95">
+                    <button 
+                        onClick={handleAddToCart}
+                        className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-4 py-2 rounded-lg font-semibold text-sm transition-all duration-300 hover:shadow-lg active:scale-95"
+                    >
                         Add
                     </button>
                 </div>

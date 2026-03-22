@@ -7,10 +7,12 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
+import { useCart } from './store/cart-context';
 
 
 
 const Header = () => {
+    const { getTotalQuantity } = useCart();
 
 
     const [theme, setTheme] = useState(() => {
@@ -56,8 +58,13 @@ const Header = () => {
                         <li><Link to="/about" className="hover:text-purple-400 transition-all duration-300 hover:scale-110 hover:shadow-lg px-3 py-2 rounded-lg hover:bg-white/10 dark:hover:bg-slate-700/50">About</Link></li>
                         <li><Link to="/contact" className="hover:text-purple-400 transition-all duration-300 hover:scale-110 hover:shadow-lg px-3 py-2 rounded-lg hover:bg-white/10 dark:hover:bg-slate-700/50">Contact</Link></li>
                         <li><Link to="/login" className="hover:text-purple-400 transition-all duration-300 hover:scale-110 hover:shadow-lg px-3 py-2 rounded-lg hover:bg-white/10 dark:hover:bg-slate-700/50">Login</Link></li>
-                        <li><Link to="/cart" className="hover:text-pink-400 transition-all duration-300 hover:scale-110 px-3 py-2 rounded-lg hover:bg-gradient-to-r hover:from-purple-600 hover:to-pink-600 font-semibold">
+                        <li><Link to="/cart" className="hover:text-pink-400 transition-all duration-300 hover:scale-110 px-3 py-2 rounded-lg hover:bg-gradient-to-r hover:from-purple-600 hover:to-pink-600 font-semibold relative">
                             <FontAwesomeIcon icon={faShoppingBasket} className="fa-icon mr-2" /> Cart
+                            {getTotalQuantity() > 0 && (
+                                <span className="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-0.5 text-xs font-bold leading-none text-white transform translate-x-1 -translate-y-1 bg-red-600 rounded-full">
+                                    {getTotalQuantity()}
+                                </span>
+                            )}
                         </Link></li>
                     </ul>
                 </nav>
